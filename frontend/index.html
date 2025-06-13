@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTN MoMo Transaction Analytics Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>MoMo Analytics</span>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="menu-item active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="menu-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Transactions</span>
+                </li>
+                <li class="menu-item">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Analytics</span>
+                </li>
+                <li class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </li>
+                <li class="menu-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Agents</span>
+                </li>
+                <li class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-title">MTN MoMo Transaction Dashboard</div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search transactions...">
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">AD</div>
+                    <span>Admin User</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <h1 class="page-title">Transaction Overview</h1>
+                <div class="header-actions">
+                    <button id="process-btn" class="btn btn-orange">
+                        <i class="fas fa-sync-alt"></i> Process Data
+                    </button>
+                    <div class="date-filter">
+                        <select id="time-filter">
+                            <option value="7">Last 7 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                            <option value="0">All time</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-cards">
+                <div class="stat-card orange">
+                    <div class="stat-title">Total Transactions</div>
+                    <div class="stat-value" id="total-transactions">0</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span id="transactions-change">0% change</span>
+                    </div>
+                </div>
+                <div class="stat-card blue">
+                    <div class="stat-title">Total Volume</div>
+                    <div class="stat-value" id="total-volume">RWF 0</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span id="volume-change">0% change</span>
+                    </div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-title">Successful</div>
+                    <div class="stat-value" id="successful-transactions">0</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span id="success-rate">100% success rate</span>
+                    </div>
+                </div>
+                <div class="stat-card purple">
+                    <div class="stat-title">Failed</div>
+                    <div class="stat-value" id="failed-transactions">0</div>
+                    <div class="stat-change negative">
+                        <i class="fas fa-arrow-down"></i>
+                        <span id="failure-rate">0% failure rate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Transaction Volume</h2>
+                        <div class="chart-actions">
+                            <button class="chart-btn active" data-period="daily">Daily</button>
+                            <button class="chart-btn" data-period="weekly">Weekly</button>
+                            <button class="chart-btn" data-period="monthly">Monthly</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="volumeChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Transaction Types</h2>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="typeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="recent-transactions">
+                <div class="transactions-header">
+                    <h2 class="transactions-title">Recent Transactions</h2>
+                    <div>
+                        <select id="type-filter">
+                            <option value="all">All Types</option>
+                            <!-- Will be populated by JS -->
+                        </select>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                </div>
+                <table class="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Date & Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactions-table-body">
+                        <!-- Will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
